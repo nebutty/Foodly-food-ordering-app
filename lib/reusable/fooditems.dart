@@ -43,7 +43,7 @@ final Map<String, List<Map<String, dynamic>>> foodItems = {
       'time': '16 mins',
       'calories': '550 Kcal',
       'price': 350.49,
-      'image': 'assets/burger.png',
+      'image': 'assets/burgers/double.png',
       'description':
           'Juicy beef patty topped with crispy bacon and smoky barbecue sauce.',
     },

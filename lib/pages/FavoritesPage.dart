@@ -71,7 +71,7 @@ class FavoritesPage extends StatelessWidget {
                       final name = item['name'] ?? 'Unknown Name';
                       final price = item['price'] ?? 0.0;
                       final imagePath = item['imagePath'] ??
-                          'assets/burger.png'; // Default image if not available
+                          'assets/burgers/burger.png'; // Default image if not available
                       final time = item['time'] ?? 'N/A';
                       final calories = item['calories'] ?? 'N/A';
                       final description =
