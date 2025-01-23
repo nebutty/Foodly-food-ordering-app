@@ -1,0 +1,58 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "com.google.gms.google-services" // FlutterFire Configuration
+    id "dev.flutter.flutter-gradle-plugin" // Flutter Gradle Plugin (must be last)
+}
+
+android {
+    namespace = "com.example.fooddelivery"
+    compileSdk = 34
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.fooddelivery"
+        minSdk = 23
+        targetSdk = 34
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+apply plugin: 'com.google.gms.google-services'
+dependencies {
+    // Firebase BoM to manage versions
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
+
+    // Firebase SDKs
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    // Add additional Firebase services as needed.
+
+    // Include the flutter_plugin_android_lifecycle dependency explicitly (if required)
+   
+
+    // Optional: Include other dependencies required by your project
+}
