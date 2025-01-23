@@ -8,10 +8,10 @@ class SearchPage extends StatefulWidget {
   final List<Map<String, dynamic>> recentSearches;
 
   const SearchPage({
-    Key? key,
+    super.key,
     required this.foodItems,
     required this.recentSearches,
-  }) : super(key: key);
+  });
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -149,13 +149,32 @@ class _SearchPageState extends State<SearchPage> {
               Wrap(
                 spacing: 8.0,
                 children: widget.recentSearches.map((item) {
-                  return Chip(
-                    backgroundColor: Colors.orange[100], // Lighter orange
-                    label: Text(item['name']),
-                    onDeleted: () async {
-                      await _removeSearch(userId, item);
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigate to the description page when a recent search item is tapped
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FoodDescriptionPage(
+                            name: item['name'],
+                            time: item['time'],
+                            calories: item['calories'],
+                            price: item['price'],
+                            imagePath: item['image'],
+                            description: item['description'],
+                            cartItems: [], // Add cartItems if needed
+                          ),
+                        ),
+                      );
                     },
-                    deleteIcon: const Icon(Icons.close, color: Colors.orange),
+                    child: Chip(
+                      backgroundColor: Colors.orange[100], // Lighter orange
+                      label: Text(item['name']),
+                      onDeleted: () async {
+                        await _removeSearch(userId, item);
+                      },
+                      deleteIcon: const Icon(Icons.close, color: Colors.orange),
+                    ),
                   );
                 }).toList(),
               ),
@@ -209,7 +228,7 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                       subtitle: Text('${item['calories']} Calories'),
-                      trailing: Text('\$${item['price']}'),
+                      trailing: Text('${item['price']} Birr'),
                       onTap: () {
                         _saveSearch(userId, item); // Save search history
                         Navigator.push(

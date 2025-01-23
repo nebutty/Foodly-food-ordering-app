@@ -198,7 +198,40 @@ class _ProfilePageState extends State<ProfilePage> {
                           leading:
                               const Icon(Icons.logout, color: Colors.orange),
                           title: const Text('Logout'),
-                          onTap: _logout,
+                          onTap: () async {
+                            // Show confirmation dialog
+                            bool confirmLogout = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Confirm Logout'),
+                                  content: const Text(
+                                      'Are you sure you want to logout?'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(
+                                            false); // Close the dialog and don't log out
+                                      },
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(
+                                            true); // Close the dialog and confirm logout
+                                      },
+                                      child: const Text('Logout'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+
+                            // If the user confirmed the logout, perform the logout
+                            if (confirmLogout) {
+                              await _logout();
+                            }
+                          },
                         ),
                       ],
                     ),
